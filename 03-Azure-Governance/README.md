@@ -1,130 +1,129 @@
-# 03 - Azure Governance & Policy
+# Azure Governance & Policy
 
-## Overview
+## Project Summary
 
-This lab focused on **Azure governance** and the tools administrators use to organize, protect, control, and standardize Azure resources.
+This lab focused on implementing **Azure governance controls** used to organize, protect, standardize, and manage cloud resources.
 
-The goal was to gain hands-on experience with subscriptions, resource groups, tags, resource locks, Azure Policy, and management groups while understanding how governance controls are applied at scale.
+The project covered subscription administration, Cost Management, resource locks, tags, Azure Policy, moving resources, PowerShell-based governance tasks, and management groups.
 
----
-
-## Objectives
-
-- Review subscription-level administration
-- Work with resource groups
-- Apply and manage tags
-- Configure resource locks
-- Understand Azure Policy
-- Assign policy at the appropriate scope
-- Review resource movement between resource groups
-- Understand management groups
-- Practice governance tasks with PowerShell
+The lab reinforced how Azure administrators use governance services to control both **how resources are organized** and **which configurations are allowed within the environment**.
 
 ---
 
-## Azure Services & Tools Used
+## Scenario
 
-- Azure Portal
-- Azure PowerShell
-- Azure Policy
-- Resource Groups
-- Resource Locks
-- Tags
-- Subscriptions
-- Management Groups
-- Cost Management
+An organization needs a consistent governance model for its Azure environment.
 
----
+As the Azure administrator, I was responsible for reviewing the subscription structure and implementing governance controls that would help protect resources, organize them for administration and cost reporting, enforce configuration standards, and prepare the environment for governance across multiple subscriptions.
 
-## Tasks Completed
+The environment needed to support the following requirements:
 
-### Subscription Administration
-
-Reviewed the Azure subscription dashboard and how subscriptions provide a boundary for:
-
-- Billing
-- Resource organization
-- Access control
-- Policy assignment
-- Cost management
-
-This reinforced the relationship between subscriptions, resource groups, and individual Azure resources.
+- Review subscription-level administration and cost information.
+- Protect important resources from accidental deletion or modification.
+- Organize resources using standardized metadata.
+- Enforce or audit configuration requirements with Azure Policy.
+- Understand how governance scope affects child resources.
+- Review requirements for moving Azure resources.
+- Use PowerShell to perform governance-related administration.
+- Understand how management groups extend governance above the subscription level.
 
 ---
 
-### Cost Management
+## Workflow
 
-Reviewed Azure Cost Management features and how administrators can monitor spending and resource consumption.
+### 1. Reviewed Subscription Administration
 
-This reinforced that Azure administration includes both technical configuration and cost awareness.
+Reviewed the Azure subscription dashboard and the role a subscription plays in:
 
----
+- Billing.
+- Resource organization.
+- Access control.
+- Policy assignment.
+- Cost management.
 
-### Resource Locks
-
-Worked with Azure resource locks to protect important resources from accidental changes.
-
-Reviewed the two primary lock types:
-
-- **CanNotDelete** — prevents deletion
-- **ReadOnly** — prevents changes and deletion
-
-The lab reinforced that locks can be inherited by child resources depending on where they are applied.
+**Result:** Established the subscription as a key administrative and governance boundary in Azure.
 
 ---
 
-### Tags
+### 2. Reviewed Azure Cost Management
 
-Used tags to organize Azure resources with metadata.
+Reviewed Azure Cost Management capabilities used to monitor resource consumption and cloud spending.
 
-Common tagging use cases include:
+Evaluated how administrators can use subscription and resource information to understand where Azure costs are being generated.
 
-- Environment
-- Department
-- Owner
-- Application
-- Cost center
-
-Tags support governance, reporting, organization, and cost tracking.
+**Result:** Reinforced cost awareness as part of normal Azure administration.
 
 ---
 
-### Azure Policy
+### 3. Configured Resource Locks
 
-Worked with Azure Policy to understand how organizations enforce standards across Azure environments.
+Worked with Azure resource locks to protect resources from accidental administrative actions.
 
-Policy can be used to:
+Reviewed the primary lock types:
 
-- Audit configurations
-- Deny noncompliant deployments
-- Require specific settings
-- Enforce organizational standards
+- **CanNotDelete** — allows modification but blocks deletion.
+- **ReadOnly** — blocks modification and deletion.
 
-The lab included applying policy and reviewing how policy scope affects the resources evaluated.
+Also reviewed how locks applied at higher scopes can affect child resources.
 
----
-
-### PowerShell Governance Tasks
-
-Used PowerShell during governance exercises when portal-based configuration was limited or when command-line practice provided a more repeatable administration method.
-
-This reinforced the value of automation for governance at scale.
+**Result:** Demonstrated how Azure administrators can add an additional protection layer to critical resources.
 
 ---
 
-### Moving Azure Resources
+### 4. Applied Resource Tags
 
-Reviewed resource movement between resource groups and the considerations administrators should validate before moving resources.
+Used Azure tags to organize resources through metadata.
 
-This reinforced that Azure resources are organized logically through subscriptions and resource groups, while dependencies can affect whether a move is supported.
+Reviewed common tagging categories such as:
+
+- Environment.
+- Department.
+- Owner.
+- Application.
+- Cost center.
+
+**Result:** Demonstrated how tagging can improve organization, reporting, ownership tracking, and cost allocation.
 
 ---
 
-### Management Groups
+### 5. Implemented Azure Policy
 
-Reviewed management groups and how they allow governance to be applied above the subscription level.
+Worked with **Azure Policy** to understand how configuration standards can be audited or enforced.
 
-Hierarchy example:
+Reviewed policy behavior such as:
+
+- Auditing resources.
+- Denying noncompliant deployments.
+- Requiring organizational settings.
+- Evaluating resources within the assigned scope.
+
+**Result:** Demonstrated how governance rules can control what configurations are allowed in an Azure environment.
+
+---
+
+### 6. Used PowerShell for Governance Administration
+
+Performed governance-related tasks with PowerShell when command-line administration provided a repeatable alternative to portal-only configuration.
+
+This reinforced the value of automation when governance controls must be applied consistently.
+
+**Result:** Added command-line administration to the governance workflow.
+
+---
+
+### 7. Reviewed Resource Movement
+
+Reviewed how Azure resources can be moved between resource groups and the dependencies administrators should validate before initiating a move.
+
+Considered how resource relationships and service support can affect whether a move is permitted.
+
+**Result:** Reinforced the need to validate resource dependencies before reorganizing production resources.
+
+---
+
+### 8. Reviewed Management Groups
+
+Reviewed **Management Groups** and how they extend Azure governance above individual subscriptions.
 
 ```text
 Management Group
@@ -136,71 +135,74 @@ Resource Groups
 Resources
 ```
 
-Management groups are especially useful in larger organizations that operate multiple Azure subscriptions.
+Reviewed how policies and access controls can be inherited through this hierarchy.
+
+**Result:** Demonstrated how larger organizations can apply governance consistently across multiple Azure subscriptions.
 
 ---
 
-## Governance Concepts Reinforced
+### 9. Verified Governance Configuration
 
-### Azure Policy vs Azure RBAC
+Validated the governance concepts and configurations by reviewing:
 
-These services solve different problems:
+- Subscription organization.
+- Cost Management information.
+- Resource lock settings.
+- Resource tags.
+- Azure Policy assignment and scope.
+- Resource group placement.
+- Management group hierarchy.
+
+**Result:** Confirmed how the individual governance controls work together to manage an Azure environment.
+
+---
+
+## Workflow Summary
 
 ```text
-Azure RBAC
-Who can perform an action?
-
-Azure Policy
-What configurations are allowed?
+Review Subscription
+        ↓
+Review Cost Management
+        ↓
+Configure Resource Locks
+        ↓
+Apply Tags
+        ↓
+Implement Azure Policy
+        ↓
+Use PowerShell
+        ↓
+Review Resource Movement
+        ↓
+Review Management Groups
+        ↓
+Verify Governance Controls
 ```
 
-RBAC manages **authorization**, while Policy manages **resource compliance and standards**.
+---
+
+## Skills Demonstrated
+
+- Azure subscriptions
+- Azure Cost Management
+- Resource Groups
+- Azure Resource Locks
+- Azure Tags
+- Azure Policy
+- Policy scope and inheritance
+- Resource movement concepts
+- Management Groups
+- Azure PowerShell
+- Governance hierarchy
+- Azure Policy vs Azure RBAC concepts
 
 ---
 
-## Verification
+## Project Outcome
 
-Governance configurations were reviewed through the Azure portal and PowerShell by validating:
+The lab established a practical understanding of how Azure governance controls are used to organize resources, reduce administrative risk, enforce standards, and manage environments at scale.
 
-- Policy assignment and scope
-- Resource lock configuration
-- Tag assignments
-- Subscription organization
-- Resource group placement
-- Management hierarchy concepts
-
----
-
-## Key Takeaways
-
-- Azure governance helps organizations manage resources consistently and safely.
-- Resource locks protect against accidental modification or deletion.
-- Tags improve organization, reporting, and cost tracking.
-- Azure Policy enforces or audits resource configuration standards.
-- RBAC and Policy serve different governance purposes.
-- Management groups allow governance across multiple subscriptions.
-- PowerShell makes governance tasks more repeatable.
-
----
-
-## Evidence
-
-Supporting files can be stored in:
-
-```text
-03-Azure-Governance/
-├── README.md
-├── scripts/
-└── screenshots/
-```
-
-Future additions may include:
-
-- Azure Policy screenshots
-- PowerShell policy commands
-- Resource lock examples
-- Tag configuration
-- Subscription and management group screenshots
+By completing the workflow, I gained hands-on experience with resource locks, tags, Azure Policy, subscription administration, PowerShell-based governance, resource organization, and the management-group hierarchy used to extend governance across multiple subscriptions.
 
 ---
 

@@ -1,231 +1,251 @@
-# 05 - Azure Virtual Machines
+# Azure Virtual Machines
 
-## Overview
+## Project Summary
 
-This lab focused on deploying and administering **Azure Virtual Machines (VMs)**.
+This lab focused on deploying and administering **Azure Virtual Machines (VMs)** and the supporting compute, storage, networking, availability, and connectivity components required to operate virtual workloads in Azure.
 
-The goal was to gain hands-on experience creating virtual machines, configuring compute, storage, networking, availability, secure connectivity, scaling, and ongoing VM administration.
+The project covered VM creation, sizing, managed disks, networking, Azure Bastion, Availability Sets, Fault Domains, Update Domains, VM resizing, additional data disks, Virtual Machine Scale Sets (VMSS), and Azure PowerShell.
 
----
-
-## Objectives
-
-- Create an Azure Virtual Machine
-- Review VM sizing options
-- Configure OS and data disks
-- Configure VM networking
-- Connect securely using Azure Bastion
-- Understand availability concepts
-- Resize an existing VM
-- Attach additional disks
-- Review Virtual Machine Scale Sets
-- Practice VM deployment with PowerShell
+The lab reinforced how multiple Azure services work together to provide a secure and scalable virtual-machine environment.
 
 ---
 
-## Azure Services & Tools Used
+## Scenario
 
-- Azure Virtual Machines
-- Azure Portal
-- Azure PowerShell
-- Managed Disks
-- Premium SSD
-- Virtual Networks
-- Network Interfaces
-- Azure Bastion
-- Availability Sets
-- Virtual Machine Scale Sets (VMSS)
+An organization needs to deploy virtual servers in Azure while maintaining secure administrative access, appropriate performance, storage flexibility, and availability.
 
----
+As the Azure administrator, I was responsible for deploying and reviewing the virtual-machine environment, selecting appropriate compute and disk options, configuring connectivity, evaluating availability protections, and reviewing scaling options for future workload growth.
 
-## Tasks Completed
+The environment needed to support the following requirements:
 
-### Virtual Machine Deployment
-
-Worked through the VM creation process and reviewed the major configuration areas involved in an Azure deployment.
-
-Configuration areas included:
-
-- Subscription and resource group
-- VM name
-- Azure region
-- Availability options
-- Image
-- VM size
-- Administrator account
-- Inbound connectivity
-- Disk configuration
-- Networking
-- Management settings
-- Advanced options
+- Deploy an Azure virtual machine.
+- Select compute resources appropriate for the workload.
+- Configure OS and data storage.
+- Review the virtual network components supporting the VM.
+- Provide secure administrative connectivity without requiring direct public exposure.
+- Understand protections against hardware failure and planned maintenance.
+- Resize VM compute resources as requirements change.
+- Add storage independently from the OS disk.
+- Review horizontal scaling using Virtual Machine Scale Sets.
+- Practice VM administration through Azure PowerShell.
 
 ---
 
-### VM Sizing
+## Workflow
 
-Reviewed Azure VM sizes and how CPU, memory, disk, and workload requirements affect VM selection.
+### 1. Created the Azure Virtual Machine
 
-This reinforced that VM sizing is both a performance and cost decision.
+Worked through the Azure VM deployment process and configured the major deployment options, including:
 
----
+- Subscription and resource group.
+- VM name.
+- Azure region.
+- Availability options.
+- Operating system image.
+- VM size.
+- Administrator credentials.
+- Inbound connectivity.
+- Disk configuration.
+- Networking.
+- Management settings.
+- Advanced options.
 
-### Managed Disks
-
-Reviewed VM disk options and the role of managed disks in Azure.
-
-Topics included:
-
-- OS disks
-- Data disks
-- Standard and Premium storage options
-- Attaching additional disks
-
-Premium SSD was reviewed as an option for workloads requiring higher disk performance.
-
----
-
-### Networking
-
-Reviewed the network resources associated with a VM, including:
-
-- Virtual network
-- Subnet
-- Network interface
-- IP configuration
-- Inbound connectivity
-
-This reinforced that VM connectivity depends on multiple Azure networking components rather than the VM alone.
+**Result:** Deployed and reviewed the core components required to provision an Azure virtual machine.
 
 ---
 
-### Azure Bastion
+### 2. Reviewed VM Sizing
 
-Reviewed and practiced the use of **Azure Bastion** for secure VM connectivity.
+Reviewed Azure VM size options and evaluated how the following factors affect VM selection:
 
-Azure Bastion allows administrators to connect to virtual machines without exposing the VM through a public IP address.
+- CPU.
+- Memory.
+- Disk requirements.
+- Workload type.
+- Cost.
 
-This is useful for reducing direct internet exposure of administrative protocols such as RDP and SSH.
+**Result:** Reinforced that VM sizing should balance workload performance with Azure consumption cost.
 
 ---
 
-### Availability
+### 3. Configured and Reviewed Managed Disks
 
-Reviewed Azure VM availability concepts, including:
+Reviewed the storage architecture used by Azure VMs, including:
 
-- Availability Sets
-- Fault Domains
-- Update Domains
+- OS disks.
+- Data disks.
+- Standard storage.
+- Premium SSD.
+
+Evaluated **Premium SSD** for workloads requiring higher IOPS and lower storage latency.
+
+**Result:** Demonstrated how VM storage can be selected based on workload-performance requirements.
+
+---
+
+### 4. Reviewed VM Networking
+
+Reviewed the network components associated with the VM, including:
+
+- Virtual network.
+- Subnet.
+- Network interface.
+- IP configuration.
+- Inbound connectivity.
+
+**Result:** Demonstrated that Azure VM connectivity depends on supporting virtual-network resources rather than only the VM configuration itself.
+
+---
+
+### 5. Used Azure Bastion for Secure Connectivity
+
+Reviewed and practiced **Azure Bastion** as a secure administrative connection method.
+
+Azure Bastion allows RDP or SSH connectivity to an Azure VM without requiring the VM to have a directly exposed public IP address.
+
+**Result:** Demonstrated a secure remote-administration method that reduces direct internet exposure.
+
+---
+
+### 6. Reviewed Availability Sets
+
+Reviewed Azure Availability Sets and how VMs can be distributed across **Fault Domains** and **Update Domains**.
 
 #### Fault Domains
 
-Distribute VMs across separate physical infrastructure to reduce the impact of hardware or rack-level failure.
+Protect against physical infrastructure or rack-level failures by distributing VM instances across separate hardware groupings.
 
 #### Update Domains
 
-Separate VMs into logical groups so planned platform maintenance does not affect all instances at the same time.
+Reduce the impact of planned Azure platform maintenance by separating VMs into logical maintenance groups.
 
-This reinforced that availability design requires planning for both unplanned hardware failure and planned maintenance.
-
----
-
-### VM Resizing
-
-Practiced reviewing and changing VM size.
-
-VM resizing allows administrators to adjust compute capacity as workload requirements change.
-
-Considerations include:
-
-- Regional size availability
-- Cost
-- Workload requirements
-- Potential restart or downtime
+**Result:** Distinguished protections for unplanned physical failure from protections used during planned platform maintenance.
 
 ---
 
-### Additional Data Disks
+### 7. Resized the Virtual Machine
 
-Reviewed the process of attaching additional managed disks to a VM.
+Reviewed and practiced changing the VM size to adjust available compute capacity.
 
-This separates application or data storage from the operating system disk and allows storage capacity to be expanded independently.
+Evaluated considerations including:
 
----
+- Regional size availability.
+- Workload needs.
+- Cost.
+- Possible restart or downtime.
 
-### Virtual Machine Scale Sets
-
-Reviewed **Virtual Machine Scale Sets (VMSS)** and how they support groups of similar VMs.
-
-VMSS can be used to:
-
-- Deploy multiple VM instances
-- Support application scalability
-- Automatically increase or decrease instance count
-- Improve availability for distributed workloads
-
-The lab reinforced the difference between manually scaling infrastructure and configuring automatic scaling behavior.
+**Result:** Demonstrated how VM compute resources can be adjusted after deployment.
 
 ---
 
-### PowerShell VM Administration
+### 8. Added an Additional Data Disk
 
-Reviewed VM deployment and management through Azure PowerShell.
+Reviewed the process for attaching an additional managed disk to the VM.
 
-Using PowerShell reinforced how infrastructure tasks can be made more consistent and repeatable than manual portal-only deployment.
+Separated data-storage requirements from the operating-system disk so capacity could be expanded independently.
 
----
-
-## Verification
-
-VM-related configurations were verified by reviewing:
-
-- VM deployment status
-- Selected VM size
-- Disk configuration
-- Network configuration
-- Bastion connectivity options
-- Availability configuration
-- Attached disks
-- Scale set options
+**Result:** Demonstrated a scalable approach to VM storage administration.
 
 ---
 
-## Key Takeaways
+### 9. Reviewed Virtual Machine Scale Sets
 
-- Azure VM deployment requires coordination between compute, storage, and networking.
-- VM size should match workload and cost requirements.
-- Managed disks simplify VM storage administration.
-- Azure Bastion provides secure remote access without requiring a VM public IP.
-- Fault Domains protect against physical infrastructure failure.
-- Update Domains reduce impact during planned maintenance.
-- VM resizing allows compute capacity to change over time.
-- Data disks allow storage to scale separately from the OS disk.
-- VM Scale Sets support scalable groups of VM instances.
-- PowerShell provides a repeatable way to deploy and manage Azure VMs.
+Reviewed **Virtual Machine Scale Sets (VMSS)** and how multiple VM instances can be managed as a scalable group.
+
+Evaluated VMSS capabilities including:
+
+- Deploying multiple similar VM instances.
+- Increasing or decreasing instance count.
+- Automatic scaling.
+- Supporting distributed application workloads.
+
+**Result:** Distinguished vertical VM resizing from horizontal scaling across multiple VM instances.
 
 ---
 
-## Evidence
+### 10. Reviewed Azure PowerShell VM Administration
 
-Supporting files can be stored in:
+Reviewed virtual-machine deployment and management through Azure PowerShell.
+
+This demonstrated how scripting can make infrastructure deployment more consistent and repeatable than relying only on manual portal configuration.
+
+**Result:** Added automation concepts to the VM administration workflow.
+
+---
+
+### 11. Verified the VM Configuration
+
+Validated the VM-related work by reviewing:
+
+- VM deployment status.
+- Selected VM size.
+- Managed disk configuration.
+- Network configuration.
+- Bastion connectivity options.
+- Availability configuration.
+- Additional data disks.
+- VM Scale Set options.
+
+**Result:** Confirmed the major compute, storage, network, availability, connectivity, and scaling components used in the lab.
+
+---
+
+## Workflow Summary
 
 ```text
-05-Azure-Virtual-Machines/
-├── README.md
-├── scripts/
-└── screenshots/
+Create Azure VM
+      ↓
+Select VM Size
+      ↓
+Configure Managed Disks
+      ↓
+Review VM Networking
+      ↓
+Connect with Azure Bastion
+      ↓
+Review Fault & Update Domains
+      ↓
+Resize VM
+      ↓
+Attach Data Disk
+      ↓
+Review VM Scale Sets
+      ↓
+Review PowerShell Administration
+      ↓
+Verify VM Configuration
 ```
 
-Future additions may include:
+---
 
-- VM deployment screenshots
-- Disk configuration
-- Network configuration
-- Bastion setup
-- Availability settings
-- Resize operation
-- Additional disk attachment
-- VM Scale Set configuration
-- PowerShell VM deployment commands
+## Skills Demonstrated
+
+- Azure Virtual Machines
+- VM deployment
+- VM sizing
+- Managed Disks
+- Premium SSD
+- Virtual Networks
+- Subnets
+- Network Interfaces
+- Azure Bastion
+- Availability Sets
+- Fault Domains
+- Update Domains
+- VM resizing
+- Additional data disks
+- Virtual Machine Scale Sets
+- Autoscaling concepts
+- Azure PowerShell
+- Infrastructure verification
+
+---
+
+## Project Outcome
+
+The lab demonstrated how Azure virtual machines are deployed and administered as part of a broader infrastructure solution that includes compute, storage, networking, availability, secure connectivity, and scaling.
+
+By completing the workflow, I gained hands-on experience deploying and reviewing Azure VMs, selecting performance options, using Bastion for secure connectivity, evaluating availability protections, resizing compute resources, expanding disk capacity, reviewing VM Scale Sets, and applying PowerShell concepts to repeatable infrastructure administration.
 
 ---
 

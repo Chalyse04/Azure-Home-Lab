@@ -1,43 +1,38 @@
-# 02 - Azure Role-Based Access Control (RBAC)
+# Azure Role-Based Access Control (RBAC)
 
-## Overview
+## Project Summary
 
-This lab focused on **Azure Role-Based Access Control (RBAC)** and how permissions are assigned to users, groups, and identities across Azure resources.
+This lab focused on administering access to Azure resources using **Azure Role-Based Access Control (RBAC)**.
 
-The goal was to build hands-on experience with Azure authorization, understand role scope and inheritance, and practice assigning built-in roles using both the Azure portal and PowerShell.
+The project covered the core authorization tasks an Azure administrator performs, including selecting built-in roles, assigning permissions at the appropriate scope, applying least-privilege access, using Azure PowerShell for role assignments, and evaluating effective permissions when access is inherited from higher levels in the Azure hierarchy.
 
----
-
-## Objectives
-
-- Understand how Azure RBAC controls authorization
-- Review built-in Azure roles
-- Assign roles at different scopes
-- Understand subscription, resource group, and resource scope
-- Practice least-privilege access
-- Assign RBAC roles using PowerShell
-- Interpret effective access and inherited permissions
+The lab reinforced the distinction between **authentication through Microsoft Entra ID** and **authorization through Azure RBAC**.
 
 ---
 
-## Azure Services & Tools Used
+## Scenario
 
-- Azure Role-Based Access Control (RBAC)
-- Azure Portal
-- Azure PowerShell
-- Azure Resource Groups
-- Azure Storage
-- Microsoft Entra ID
+An organization needs to provide users with access to Azure resources while preventing unnecessary administrative privileges.
+
+As the Azure administrator, I was responsible for assigning the appropriate built-in roles to identities at the **resource group scope** and verifying that the resulting permissions matched the intended access requirements.
+
+The environment needed to support the following requirements:
+
+- Use Azure built-in roles instead of granting unnecessary full administrative access.
+- Assign permissions at an appropriate Azure scope.
+- Provide read access to storage data where modification was not required.
+- Provide Contributor access where resource management was required.
+- Use PowerShell to perform repeatable role assignments.
+- Review inherited access when observed permissions exceeded the newly assigned role.
+- Verify the effective access granted to the identity.
 
 ---
 
-## Tasks Completed
+## Workflow
 
-### RBAC Fundamentals
+### 1. Reviewed Azure RBAC Components
 
-Reviewed how Azure RBAC determines what an authenticated identity is allowed to do within Azure.
-
-A role assignment combines three components:
+Reviewed the three elements required to create an Azure role assignment:
 
 ```text
 Security Principal
@@ -49,29 +44,28 @@ Scope
 Role Assignment
 ```
 
-This reinforced the difference between authentication and authorization:
+Identified how Microsoft Entra identities are authenticated first and then authorized to Azure resources through RBAC.
 
-- **Microsoft Entra ID** confirms identity.
-- **Azure RBAC** controls access to Azure resources.
+**Result:** Established the authorization model used throughout the remainder of the lab.
 
 ---
 
-### Built-In Roles
+### 2. Reviewed Built-In Azure Roles
 
-Worked with common built-in Azure roles and reviewed the permissions associated with each.
-
-Examples included:
+Reviewed commonly used Azure built-in roles, including:
 
 - Reader
 - Contributor
 - Owner
 - Storage Blob Data Reader
 
-The lab reinforced that broad roles should only be used when required.
+Compared the permissions provided by each role and identified when a narrower role would satisfy the access requirement.
+
+**Result:** Reinforced role selection based on least privilege instead of convenience.
 
 ---
 
-### Scope and Inheritance
+### 3. Evaluated Azure RBAC Scope
 
 Reviewed the Azure scope hierarchy:
 
@@ -85,97 +79,103 @@ Resource Group
 Resource
 ```
 
-Role assignments made at a higher scope can be inherited by lower-level resources.
+Selected the **resource group** as the working scope for the hands-on role assignments.
 
-This became especially important during testing because inherited permissions can affect the results of access-control labs.
-
----
-
-### PowerShell Role Assignments
-
-Used Azure PowerShell to assign permissions at the **resource group scope**.
-
-Hands-on work included assigning roles such as:
-
-- Storage Blob Data Reader
-- Contributor
-
-This provided experience performing access-control tasks outside of the Azure portal.
+**Result:** Applied permissions at a scope that covered the required resources without unnecessarily assigning access across the entire subscription.
 
 ---
 
-## Troubleshooting / Key Observation
+### 4. Assigned Storage Blob Data Reader
 
-During access testing, an identity with a lower-level read role was still able to perform write actions.
+Assigned the **Storage Blob Data Reader** role at resource group scope using Azure PowerShell.
 
-### Cause
+This role provides read access to blob data without granting broad resource-management permissions.
 
-The account already had **Owner** permissions inherited from a higher scope.
-
-### Learning
-
-A lower-level role assignment does not remove broader permissions inherited from another scope.
-
-When troubleshooting Azure RBAC, effective access must be evaluated across **all applicable role assignments**, not just the role being tested.
+**Result:** Practiced assigning a data-plane role that matched a read-only storage requirement.
 
 ---
 
-## Least Privilege
+### 5. Assigned Contributor Access
 
-A major focus of this lab was applying the principle of least privilege.
+Assigned the **Contributor** role at resource group scope using Azure PowerShell.
 
-Examples:
+Reviewed how Contributor permits resource management while preventing the user from granting Azure RBAC permissions to other identities.
 
-- Use **Reader** when modification is unnecessary.
-- Use data-plane roles such as **Storage Blob Data Reader** for specific storage access.
-- Avoid assigning **Owner** or **Contributor** when a narrower role will meet the requirement.
-- Assign roles at the lowest appropriate scope.
+**Result:** Demonstrated the difference between resource administration and access-control administration.
 
 ---
 
-## Verification
+### 6. Tested and Troubleshot Effective Permissions
 
-Role assignments were verified by reviewing:
+During access testing, the account was still able to perform write actions even when a more restrictive role was being evaluated.
 
-- Assigned role
-- Security principal
-- Assignment scope
-- Inherited permissions
-- Effective access behavior
+Investigation showed that the account already had **Owner** permissions inherited from a higher scope.
 
-PowerShell and Azure portal results were compared to confirm the role assignments were applied.
+This demonstrated that a lower-level role assignment does not remove broader access already inherited from another assignment.
+
+**Result:** Identified inherited RBAC permissions as the reason the observed access exceeded the permissions of the role being tested.
 
 ---
 
-## Key Takeaways
+### 7. Verified Role Assignments
 
-- Azure RBAC controls authorization to Azure resources.
-- Role assignments consist of a principal, role definition, and scope.
-- Permissions can be inherited from higher scopes.
-- Effective permissions may include multiple role assignments.
-- Broad inherited permissions can affect lab testing.
-- Least privilege should guide both role selection and assignment scope.
-- PowerShell provides a repeatable way to manage Azure access.
+Validated the completed RBAC configuration by reviewing:
+
+- Security principal.
+- Assigned role.
+- Assignment scope.
+- Inherited permissions.
+- Effective access behavior.
+
+Compared the expected permissions with the access observed during testing.
+
+**Result:** Confirmed that the role assignments were applied and correctly explained why inherited Owner access affected the test results.
 
 ---
 
-## Evidence
-
-Supporting files can be stored in:
+## Workflow Summary
 
 ```text
-02-RBAC/
-├── README.md
-├── scripts/
-└── screenshots/
+Review RBAC Components
+        ↓
+Select Built-In Roles
+        ↓
+Choose Resource Group Scope
+        ↓
+Assign Storage Blob Data Reader
+        ↓
+Assign Contributor
+        ↓
+Test Effective Access
+        ↓
+Identify Inherited Owner Permission
+        ↓
+Verify Role Assignments
 ```
 
-Future additions may include:
+---
 
-- PowerShell role-assignment commands
-- Role assignment screenshots
-- Access-control verification
-- Effective-access examples
+## Skills Demonstrated
+
+- Azure Role-Based Access Control (RBAC)
+- Microsoft Entra ID and Azure authorization concepts
+- Built-in Azure roles
+- Resource group scope
+- Role inheritance
+- Effective access analysis
+- Least-privilege administration
+- Storage Blob Data Reader
+- Contributor role
+- Azure PowerShell
+- Permissions troubleshooting
+
+---
+
+## Project Outcome
+
+The lab demonstrated how Azure RBAC can be used to provide controlled access to Azure resources through built-in roles and appropriately scoped assignments.
+
+By completing the workflow, I gained hands-on experience assigning permissions with PowerShell, applying least-privilege principles, evaluating Azure scope and inheritance, and troubleshooting effective access when higher-level permissions affected the expected authorization behavior.
 
 ---
 
